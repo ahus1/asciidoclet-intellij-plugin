@@ -1,0 +1,7 @@
+= How to Contribute
+:docs-url: https://intellij-asciidoc-plugin.ahus1.de/docs
+
+This plugin is a companion of the AsciiDoc plugin as it builds on it to add https://github.com/asciidoctor/asciidoclet[Asciidoclet] support.
+
+Please visit the {docs-url}/contributors-guide/index.html[Contributor's Guide] on the plugin's homepage for more information on how to contribute to the development of the plugin.
+

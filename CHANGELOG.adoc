@@ -1,0 +1,12 @@
+= Asciidoclet IntelliJ Plugin Changelog
+
+== About
+
+This document provides a high-level view of the changes introduced by release.
+
+[[releasenotes]]
+== Release notes
+
+=== 0.1.0 (work in progress)
+
+- Move Asciidoclet functionality to its own plugin to make AsciiDoc plugin dynamic again

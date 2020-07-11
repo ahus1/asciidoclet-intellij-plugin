@@ -1,0 +1,114 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    maven { url 'https://www.jetbrains.com/intellij-repository/snapshots' }
+  }
+  dependencies {
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
+  }
+}
+
+plugins {
+  id "org.jetbrains.intellij" version "0.4.21"
+  id "checkstyle"
+  id 'org.asciidoctor.jvm.convert' version '2.2.0'
+  // once windows classpaths get too long, use this dependency to make them shorter again
+  id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
+  id 'net.ltgt.errorprone' version '0.8.1' apply false
+}
+
+checkstyle {
+  toolVersion '8.30'
+}
+
+apply plugin: 'org.jetbrains.intellij'
+apply plugin: 'java'
+apply plugin: 'net.ltgt.errorprone'
+
+import org.jsoup.Jsoup
+
+allprojects {
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+}
+
+intellij {
+  version 'IC-202.6250.13-EAP-SNAPSHOT'
+  pluginName 'asciidoclet-intellij-plugin'
+  updateSinceUntilBuild false
+  plugins = [
+    'PsiViewer:202-SNAPSHOT.3', // used for debugging
+    'org.asciidoctor.intellij.asciidoc:0.31.12', // used as a base for rendering AsciiDoc
+    'java' // used to override Java
+  ]
+}
+
+asciidoctor {
+  sourceDir file('.')
+  sources {
+    include 'CHANGELOG.adoc'
+  }
+  outputDir file('build/docs')
+}
+
+patchPluginXml {
+  dependsOn asciidoctor
+  version System.getenv('TRAVIS_TAG')
+  changeNotes = {
+    Jsoup.parse(file('build/docs/CHANGELOG.html').getText('UTF-8'))
+      .select("#releasenotes").get(0).nextElementSibling().children()
+      // .subList(0, 20)
+      .stream().map { e ->
+      e.html()
+        .replaceAll('\\(preview, available from GitHub releases\\)', '')
+        .replaceAll('#([0-9]+)', '<a href="https://github.com/ahus1/asciidoclet-intellij-plugin/issues/$1">#$1</a>')
+        // regex for GitHub user names from https://github.com/shinnn/github-username-regex
+        .replaceAll('(?i)@([a-z\\d](?:[a-z\\d]|-(?=[a-z\\d])){0,38})', '<a href="https://github.com/$1">@$1</a>')
+    }
+      .collect().join("\n")
+  }
+  pluginDescription "${file('src/main/resources/META-INF/description.html').getText('UTF-8')}"
+}
+
+runIde {
+  jvmArgs = ['-Xmx1024m','-XX:+UnlockDiagnosticVMOptions']
+
+  // should not automatically reload plugin on change in IDE, as JRuby is not very good at this
+  systemProperty('idea.auto.reload.plugins', 'false')
+
+  systemProperty('ide.plugins.snapshot.on.unload.fail', 'true')
+}
+
+publishPlugin {
+  username 'ahus1'
+  token System.getenv('PLUGIN_REPO_TOKEN')
+  channels 'eap'
+}
+
+test {
+  testLogging {
+    // this show the full exception on failed tests on travis
+    exceptionFormat = 'full'
+  }
+}
+
+dependencies {
+  errorprone 'com.google.errorprone:error_prone_core:2.3.2'
+  errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
+  testImplementation 'junit:junit:4.12'
+}
+
+sourceSets {
+  main {
+    resources {
+      exclude('META-INF/description.html')
+    }
+  }
+}
+
+compileJava {
+  options.errorprone.error('StreamResourceLeak') // enforce errors where there would be warning in the standard only
+}

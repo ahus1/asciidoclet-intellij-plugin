@@ -1,0 +1,61 @@
+= IntelliJ AsciiDoc Plugin
+Alexander Schwartz
+:experimental:
+:url-ci-travis: https://travis-ci.org/ahus1/asciidoclet-intellij-plugin
+:homepage-url: https://intellij-asciidoc-plugin.ahus1.de/
+
+image:https://api.travis-ci.org/ahus1/asciidoclet-intellij-plugin.svg?branch=master[link={url-ci-travis}]
+// TODO: update plugin ID
+image:https://img.shields.io/jetbrains/plugin/v/7391-asciidoc.svg[JetBrains Plugins,link=https://plugins.jetbrains.com/plugin/7391-asciidoc]
+image:https://img.shields.io/jetbrains/plugin/d/7391-asciidoc.svg[Downloads,link=https://plugins.jetbrains.com/plugin/7391-asciidoc]
+
+A plugin for the IntelliJ platform (IntelliJ IDEA, RubyMine, etc.) that provides support for the https://github.com/asciidoctor/asciidoclet[Asciidoclet].
+
+It is a companion of the https://plugins.jetbrains.com/plugin/7391-asciidoc[AsciiDoc plugin].
+
+////
+*To contribute as a developer, some issues are labeled with link:https://github.com/asciidoctor/asciidoctor-intellij-plugin/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22["good first issue"].* Maintainers are willing to help.
+Feel free to choose these or any other ticket to participate, or create pull requests without a prior ticket.
+////
+
+== Installation
+
+// TODO: fix link
+You can install the plugin (named "`Asciidoclet`") from the plugins section inside your JetBrains IDE or download it from the https://plugins.jetbrains.com/plugin/7391[JetBrains Plugin Repository].
+
+Refer to the link:{homepage-url}/docs/users-guide/features/advanced/asciidoclet.html[installation] for a detailed overview of the features.
+
+== Features
+
+Once the plugin is installed, the Quick-Help (kbd:[Ctrl+Q]) will render all Javadoc-comments as AsciiDoc.
+This is a global setting for all projects.
+
+Since IDEA release 2020.1 users can choose to show Javadoc comments rendered in the editor.
+See chapter https://www.jetbrains.com/help/idea/working-with-code-documentation.html#toggle-rendered-view["`Render Javadocs`"] in the IDEA documentation for more information.
+
+// TODO: This is supported from ...
+
+Refer to the link:{homepage-url}/docs/users-guide/features/advanced/asciidoclet.html[Asciidoclet documentation] for a detailed overview of the features.
+
+If you are missing features, please don't hesitate to let me know on Twitter: http://www.twitter.com/ahus1de[@ahus1de] or create an issue in the GitHub issue tracker!
+
+Refer to the link:CHANGELOG.adoc[CHANGELOG] for a complete list of changes in older releases.
+
+== Dependencies
+
+This project depends on the https://plugins.jetbrains.com/plugin/7391-asciidoc[AsciiDoc plugin] to be installed.
+
+== Building, Contributing, Code of Conduct
+
+////
+Issues that can give you a good start are https://github.com/asciidoctor/asciidoctor-intellij-plugin/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22[have the label "`good first issue`"] and maintainers are willing to help.
+Feel free to choose these or any other ticket to contribute, or even create pull requests without a prior ticket.
+////
+
+Please have a look at the {homepage-url}/docs/contributors-guide/index.html["`Contributor Guide`"].
+This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the link:CODE_OF_CONDUCT.adoc[Contributor Covenant code of conduct].
+
+== Copyright and Licensing
+
+Copyright (C) 2013-2020 Julien Viet, Erik Pragt, Alexander Schwartz and the individual contributors.
+Released under the Apache License, Version 2.0 (see link:LICENSE[LICENSE]).

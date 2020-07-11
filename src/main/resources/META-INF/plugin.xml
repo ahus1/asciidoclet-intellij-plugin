@@ -1,0 +1,34 @@
+<idea-plugin url="https://intellij-asciidoc-plugin.ahus1.de/">
+  <id>org.asciidoctor.intellij.asciidoclet</id>
+  <name>Asciidoclet</name>
+  <version>0.0.1</version>
+  <vendor email="alexander.schwartz@gmx.net" url="https://github.com/ahus1/asciidoclet-intellij-plugin">
+    Asciidoclet IntelliJ Plugin Project
+  </vendor>
+
+  <description>(automatically filled during build from description.html)</description>
+
+  <change-notes>(automatically filled during build from CHANGELOG.adoc)</change-notes>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <idea-version since-build="202.6109.22"/> <!-- 2020.2 EAP -->
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
+  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.java</depends>
+  <depends>org.asciidoctor.intellij.asciidoc</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService overrides="true" serviceInterface="com.intellij.codeInsight.javadoc.JavaDocInfoGeneratorFactory"
+                        serviceImplementation="org.asciidoc.intellij.asciidoclet.javadoc.AsciidocletJavaDocInfoGeneratorFactory"/>
+    <applicationConfigurable id="Settings.Asciidoclet.Preview"
+                             bundle="AsciidocletBundle"
+                             groupId="language"
+                             nonDefaultProject="true"
+                             key="settings.asciidoclet.name"
+                             instance="org.asciidoc.intellij.asciidoclet.settings.AsciidocletConfigurable">
+    </applicationConfigurable>
+    <applicationService serviceImplementation="org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings"/>
+  </extensions>
+
+</idea-plugin>
