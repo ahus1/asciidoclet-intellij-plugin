@@ -1,7 +1,6 @@
 language: java
 jdk:
 - oraclejdk8
-# remove line "dist: trusty" and fast forward to xenial once oraclejdk8 is no longer required due to old JavaFX
 dist: trusty
 script:
 - "./gradlew -Dfile.encoding=UTF-8 check buildPlugin"
@@ -19,22 +18,24 @@ cache:
   - "$HOME/.gradle/wrapper/"
 env:
   global:
-    secure: BdgAcZphbuZ61etK+9dsNxtMtcAj7mcZEae13e4k6ScvhpdEDy0vl8fnm9f6gf51Htjn+UC6wwzvTRUCB7xbHMiVxFe5wVCLB7GUpmrjo4Kov2klAp76HGqF7X81iIoj28HNgRqYRuuZB+VFsm7gVlemn+pbQEqRstHO7c9YUrA=
+    secure: 2JnqKpzrgkR26AT3KIZB8xWzxbcpKdyXdIglW0en0Sruydgge4qRu/Vk8tEVx7IOXFdJnugaRaiHuE0FR19W+zz3L/QMwHZwBlICa56sBaKsT1Y4ngwCInjAuZpbfyxZJXQs1EW7aaE1u1y/wEIWCLd2RiNIO2p8GnPk0AwoFzXMYF6cIzgxQyhNljJqVS8LkaDKxMoeQwnNUE5ggUJBzN7YIpdB9afx3RToiRx1wwvRq8wOZ2R1IIebA9W6DWkcHg2ERV5F3fXomvOZLUxsKwfjFPYe64j4Y6TPC2h5OW+4/8lKzD18fIQOZ4NhsHnKeoUJG0LjnJcI/snZSGsZG+U8GjWVyUh54F0AhgsIzJ9jn+uiWDwgY801z+lwKAklY7neu+qE/hDGEfOuJnWOXq9tAH+v34mXlADCYWzeiOQ1zvLLsWxPtRRkhu6PxCOf216GDXcVKg0s5zEP7MlPeoxCCjejcFVm306+072vliVgKvuRAEks/FxhlxFLiy8S269NLoUMbRfHZh7l1dUXP0H8CyI8LA7JuzP2e0rRWCLwERE0eogIe/eL8taJHsAY6esTUNpAqQ13YLbljebInfNL0iLd9foNr5gnUv84n6OjiIx7vV5XNwZVDFf3bsHLBw8lpSvctbXiQD3nhmDAMBU2pWmmLB+scKNMOIP0MNA=
 deploy:
 - provider: releases
   prerelease: true
   skip_cleanup: true
   overwrite: true
   api_key:
-    secure: L7f73+dt2+XCdhLsMDwkG/Y9Y2DIx1zghK+6eG84kEiPn/Dn9Dw7ZPt3Zwst2hCIjvq9mkUOup4s0bVh5IhsPahGseA5I1LCkxdV8Z/gIRvHFtd5jViBpa9iPiyuc9V70tBp77t/0lRnpRX0xQaqIDlFMK1wvoKzSuWu17y6Qwk=
-  file: build/distributions/asciidoctor-intellij-plugin.zip
+    secure: "4ysCoyLEIC4if9htN9OrWoOd7XUCPJ6FM49BjXt2BqA2ffsno/7e1Xod6vwTPhM7ByFwLXxlCtKnC3Zu8cZjXbJp2dgABStsf4Vdsb3u2Jkpb4q0z6lP6QTI20nLbvO8q9LdB/zf71niAlI1XfGUsDnGqAaF47iGags5lGFeBPtygQvCQ7VRsZZshk5Ey2OchS3pV4JstVBZnaXm7W1O1XYMRP2fxvPRVU+UfBdcZM0v3H1eG+47DZwWd1y9YL
+    SZmH8fdK1SpM1RA+P8Zr4KWA4mFjT/6HNBKUg2frqx3vDnPf512l9aWTxLe4W5e1fVYFM6Ucz6a9f3YzQmWk0elrlNJeM6FSs6C9G3eRI6sOjdvp6NOBnhdP/sHJcjxqlJ0zNb5Md+Dhb5QJ1IpzooZADj0epKNMtp7Hs7TPu9HnFgBqRfIcnzWm4O1bUwg9gyFmwnIyX8a8LSu/IZiPHlal9C5NPfLzLFXXGEq3nMq43WlRKtZnIZ8Z2MXmBYe9lb0kx0lIl
+    +VtUt8vMJeuE2rcR0FAeI23N/2Bff7tFavHDtv2swUFHgqNt/RJ+oAVKjniDat5wIuPMeUBld2i24EPHltrR8XZE1AR4kkmnT+BLWTEeYXoZrtLIYa85JNw90t2XClIZK/pYyTW4VS7KdJfgrOLrSGG3IZ8HbBN0ChbM="
+  file: build/distributions/asciidoclet-intellij-plugin.zip
   on:
-    repo: asciidoctor/asciidoctor-intellij-plugin
+    repo: ahus1/asciidoclet-intellij-plugin
     all_branches: false
     tags: true
 - provider: script
   script: "./gradlew -Dfile.encoding=UTF-8 publishPlugin"
   on:
-    repo: asciidoctor/asciidoctor-intellij-plugin
+    repo: ahus1/asciidoclet-intellij-plugin
     all_branches: false
     tags: true
