@@ -5,7 +5,6 @@ import com.intellij.codeInsight.javadoc.JavaDocInfoGeneratorFactory;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import org.asciidoc.intellij.javadoc.AsciiDocJavaDocInfoGenerator;
 
 public class AsciidocletJavaDocInfoGeneratorFactory extends JavaDocInfoGeneratorFactory {
   public static JavaDocInfoGeneratorFactory getInstance() {

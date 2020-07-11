@@ -4,9 +4,7 @@ import com.intellij.AbstractBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.PropertyKey;
 
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class AsciidocletBundle {
   @NotNull

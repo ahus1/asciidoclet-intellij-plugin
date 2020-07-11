@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.asciidoc.intellij.AsciiDoc;
 import org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings;
 import org.asciidoc.intellij.editor.AsciiDocPreviewEditor;
-import org.asciidoc.intellij.settings.AsciiDocApplicationSettings;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,14 +52,14 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
 
   /**
    * Touch up Javadoc by extracing AsciiDoc content an re-processing it via Asciidoctor.
-   * <p />
+   * <p/>
    * Parsing the HTML content to reverse-engineer the AsciiDoc content looks a bit crude on first sight,
    * but has some distinct advantages:
    * <ul>
    *   <li>All @link and @code references have already been processed.</li>
    *   <li>Heavy lifting to parse annotations in the documentation has already been completed.</li>
    * </ul>
-   *
+   * <p>
    * Known limitations: if the AsciiDoc uses something that looks like an annotation, the parsing will terminate at
    * that point. Users should change the "@" of the annotation to "{at}".
    */
