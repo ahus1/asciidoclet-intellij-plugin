@@ -1,6 +1,7 @@
 package org.asciidoc.intellij.asciidoclet.javadoc;
 
 import com.intellij.codeInsight.javadoc.JavaDocInfoGenerator;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -8,6 +9,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import org.apache.commons.io.FileUtils;
 import org.asciidoc.intellij.AsciiDoc;
+import org.asciidoc.intellij.AsciiDocExtensionService;
 import org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings;
 import org.asciidoc.intellij.editor.AsciiDocPreviewEditor;
 import org.intellij.lang.annotations.Language;
@@ -113,7 +115,7 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
       }
       final String config = AsciiDoc.config(virtualFile, project);
       Path tempImagesPath = AsciiDoc.tempImagesPath();
-      List<String> extensions = AsciiDoc.getExtensions(project);
+      List<String> extensions = ServiceManager.getService(AsciiDocExtensionService.class).getExtensions(project);
       try {
         File fileBaseDir = new File("");
         if (element.getProject().getBasePath() != null) {

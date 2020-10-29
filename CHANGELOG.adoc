@@ -7,6 +7,10 @@ This document provides a high-level view of the changes introduced by release.
 [[releasenotes]]
 == Release notes
 
+=== 0.1.1
+
+- Update to align compatibility with version 0.31.38 of its parent AsciiDoc plugin
+
 === 0.1.0
 
 - Move Asciidoclet functionality to its own plugin to make AsciiDoc plugin dynamic again

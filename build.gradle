@@ -10,7 +10,7 @@ buildscript {
 }
 
 plugins {
-  id "org.jetbrains.intellij" version "0.4.21"
+  id "org.jetbrains.intellij" version "0.5.1"
   id "checkstyle"
   id 'org.asciidoctor.jvm.convert' version '2.2.0'
   // once windows classpaths get too long, use this dependency to make them shorter again
@@ -36,12 +36,12 @@ allprojects {
 }
 
 intellij {
-  version 'IC-202.6250.13-EAP-SNAPSHOT'
+  version 'IC-2020.2.1'
   pluginName 'asciidoclet-intellij-plugin'
   updateSinceUntilBuild false
   plugins = [
     'PsiViewer:202-SNAPSHOT.3', // used for debugging
-    'org.asciidoctor.intellij.asciidoc:0.31.12', // used as a base for rendering AsciiDoc
+    'org.asciidoctor.intellij.asciidoc:0.31.38', // used as a base for rendering AsciiDoc
     'java' // used to override Java
   ]
 }
