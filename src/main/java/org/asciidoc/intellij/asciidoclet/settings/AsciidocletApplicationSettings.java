@@ -19,13 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AsciidocletApplicationSettings implements PersistentStateComponent<org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings.State>,
   AsciidocletPreviewSettings.Holder {
 
-  private State myState = new State();
-
-  /* this is a transient state, will be discarded on every restart
-    as the setting is changed for each project, we keep a state for each project.
-   */
-  private Map<String, Boolean> extensionsEnabled = new ConcurrentHashMap<>();
-  private Map<String, Boolean> extensionsPresent = new ConcurrentHashMap<>();
+  private final State myState = new State();
 
   @NotNull
   public static org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings getInstance() {
