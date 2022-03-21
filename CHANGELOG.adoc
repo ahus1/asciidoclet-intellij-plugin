@@ -10,6 +10,7 @@ This document provides a high-level view of the changes introduced by release.
 === 0.1.3
 
 - Align with the latest version of the AsciiDoc plugin for IntelliJ 0.37.39+ (#3)
+- Enhanced JavaDoc content extraction for latest IntelliJ IDEA (#1)
 
 === 0.1.2
 
