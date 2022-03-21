@@ -76,7 +76,7 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
         // no Javadoc content found
         return html;
       }
-      int end = html.lastIndexOf(END);
+      int end = html.indexOf(END, start);
       // in some places the IntelliJ code adds a <p> right before the div, remove that as well.
       //noinspection StringOperationCanBeSimplified
       if (html.substring(end - 3, end).equals("<p>")) {
@@ -88,7 +88,7 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
 
       // remove indentation spaces at beginning of the line
       int c = 0;
-      while (content.length() > c && content.charAt(c) == ' ') {
+      while (content.length() > c && isSkipableWhitespace(content.charAt(c))) {
         c++;
       }
       content = content.replaceAll("\n" + content.substring(0, c), "\n");
@@ -145,5 +145,8 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
     return html;
   }
 
+  private boolean isSkipableWhitespace(char character) {
+    return character == ' ' || character == '\t';
+  }
 
 }
