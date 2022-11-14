@@ -1,16 +1,13 @@
 package org.asciidoc.intellij.asciidoclet.settings;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import com.intellij.util.xmlb.annotations.Property;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @State(
   name = "AsciidocletApplicationSettings",
@@ -23,7 +20,7 @@ public class AsciidocletApplicationSettings implements PersistentStateComponent<
 
   @NotNull
   public static org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings getInstance() {
-    return ServiceManager.getService(org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings.class);
+    return ApplicationManager.getApplication().getService(org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings.class);
   }
 
   @Nullable

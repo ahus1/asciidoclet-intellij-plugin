@@ -1,21 +1,17 @@
 buildscript {
   repositories {
-    jcenter()
-    maven { url 'https://dl.bintray.com/jetbrains/intellij-plugin-service' }
+    mavenCentral()
     maven { url 'https://www.jetbrains.com/intellij-repository/snapshots' }
-  }
-  dependencies {
-    classpath 'com.github.ben-manes:gradle-versions-plugin:0.21.0'
   }
 }
 
 plugins {
-  id "org.jetbrains.intellij" version "0.5.1"
+  id "org.jetbrains.intellij" version "1.9.0"
   id "checkstyle"
-  id 'org.asciidoctor.jvm.convert' version '2.2.0'
+  id 'org.asciidoctor.jvm.convert' version '3.3.2'
   // once windows classpaths get too long, use this dependency to make them shorter again
   id "com.github.ManifestClasspath" version "0.1.0-RELEASE"
-  id 'net.ltgt.errorprone' version '0.8.1' apply false
+  id 'net.ltgt.errorprone' version '3.0.1' apply false
 }
 
 checkstyle {
@@ -27,6 +23,7 @@ apply plugin: 'java'
 apply plugin: 'net.ltgt.errorprone'
 
 import org.jsoup.Jsoup
+import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
 
 allprojects {
   repositories {
@@ -36,17 +33,18 @@ allprojects {
 }
 
 intellij {
-  version 'IC-2020.2.1'
-  pluginName 'asciidoclet-intellij-plugin'
-  updateSinceUntilBuild false
+  version = 'IC-2021.3.2'
+  pluginName = 'asciidoclet-intellij-plugin'
+  updateSinceUntilBuild = false
   plugins = [
-    'PsiViewer:202-SNAPSHOT.3', // used for debugging
-    'org.asciidoctor.intellij.asciidoc:0.31.38', // used as a base for rendering AsciiDoc
+    'PsiViewer:213-SNAPSHOT', // used for debugging
+    'org.asciidoctor.intellij.asciidoc:0.37.54', // used as a base for rendering AsciiDoc
     'java' // used to override Java
   ]
 }
 
 asciidoctor {
+  baseDir
   sourceDir file('.')
   sources {
     include 'CHANGELOG.adoc'
@@ -54,10 +52,11 @@ asciidoctor {
   outputDir file('build/docs')
 }
 
+version = System.getenv('VERSION')
+
 patchPluginXml {
-  dependsOn asciidoctor
-  version System.getenv('TRAVIS_TAG')
-  changeNotes = {
+  dependsOn = [ asciidoctor ]
+  changeNotes = provider {
     Jsoup.parse(file('build/docs/CHANGELOG.html').getText('UTF-8'))
       .select("#releasenotes").get(0).nextElementSibling().children()
       // .subList(0, 20)
@@ -70,7 +69,7 @@ patchPluginXml {
     }
       .collect().join("\n")
   }
-  pluginDescription "${file('src/main/resources/META-INF/description.html').getText('UTF-8')}"
+  pluginDescription = "${file('src/main/resources/META-INF/description.html').getText('UTF-8')}"
 }
 
 runIde {
@@ -82,10 +81,15 @@ runIde {
   systemProperty('ide.plugins.snapshot.on.unload.fail', 'true')
 }
 
+runPluginVerifier {
+  // https://github.com/JetBrains/gradle-intellij-plugin/blob/master/src/main/kotlin/org/jetbrains/intellij/tasks/RunPluginVerifierTask.kt#L485
+  failureLevel = [FailureLevel.INVALID_PLUGIN, FailureLevel.COMPATIBILITY_PROBLEMS, FailureLevel.NOT_DYNAMIC]
+  ideVersions = Arrays.asList(project.properties['pluginVerifierIdeVersions'].toString().split(','))
+}
+
 publishPlugin {
-  username 'ahus1'
-  token System.getenv('PLUGIN_REPO_TOKEN')
-  channels 'eap'
+  token = System.getenv('PUBLISH_TOKEN')
+  channels = [("true" == System.getenv("PRE_RELEASE")) ? 'eap' : 'default']
 }
 
 test {
@@ -96,8 +100,7 @@ test {
 }
 
 dependencies {
-  errorprone 'com.google.errorprone:error_prone_core:2.3.2'
-  errorproneJavac 'com.google.errorprone:javac:9+181-r4173-1'
+  errorprone 'com.google.errorprone:error_prone_core:2.16'
   testImplementation 'junit:junit:4.12'
 }
 

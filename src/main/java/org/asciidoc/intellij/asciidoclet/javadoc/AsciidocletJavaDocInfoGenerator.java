@@ -1,14 +1,14 @@
 package org.asciidoc.intellij.asciidoclet.javadoc;
 
 import com.intellij.codeInsight.javadoc.JavaDocInfoGenerator;
-import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import org.apache.commons.io.FileUtils;
-import org.asciidoc.intellij.AsciiDoc;
+import org.asciidoc.intellij.AsciiDocWrapper;
 import org.asciidoc.intellij.AsciiDocExtensionService;
 import org.asciidoc.intellij.asciidoclet.settings.AsciidocletApplicationSettings;
 import org.asciidoc.intellij.editor.AsciiDocPreviewEditor;
@@ -78,6 +78,7 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
       }
       int end = html.lastIndexOf(END);
       // in some places the IntelliJ code adds a <p> right before the div, remove that as well.
+      //noinspection StringOperationCanBeSimplified
       if (html.substring(end - 3, end).equals("<p>")) {
         end -= 3;
       }
@@ -113,9 +114,9 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
       if (psiFile != null) {
         virtualFile = psiFile.getVirtualFile();
       }
-      final String config = AsciiDoc.config(virtualFile, project);
-      Path tempImagesPath = AsciiDoc.tempImagesPath();
-      List<String> extensions = ServiceManager.getService(AsciiDocExtensionService.class).getExtensions(project);
+      final String config = AsciiDocWrapper.config(virtualFile, project);
+      Path tempImagesPath = AsciiDocWrapper.tempImagesPath(null, null);
+      List<String> extensions = ApplicationManager.getApplication().getService(AsciiDocExtensionService.class).getExtensions(project);
       try {
         File fileBaseDir = new File("");
         if (element.getProject().getBasePath() != null) {
@@ -125,7 +126,7 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
         if (virtualFile != null) {
           name = virtualFile.getName();
         }
-        AsciiDoc asciiDoc = new AsciiDoc(project, fileBaseDir,
+        AsciiDocWrapper asciiDoc = new AsciiDocWrapper(project, fileBaseDir,
           tempImagesPath, name);
         content = asciiDoc.render(content, config, extensions);
       } finally {

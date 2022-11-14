@@ -1,10 +1,10 @@
 = IntelliJ Asciidoclet Plugin
 Alexander Schwartz
 :experimental:
-:url-ci-travis: https://travis-ci.org/ahus1/asciidoclet-intellij-plugin
 :homepage-url: https://intellij-asciidoc-plugin.ahus1.de/
+:github: https://github.com/ahus1/asciidoclet-intellij-plugin
 
-image:https://api.travis-ci.org/ahus1/asciidoclet-intellij-plugin.svg?branch=master[link={url-ci-travis}]
+image:{github}/workflows/Build/badge.svg?branch=main[Build Status (GitHub Workflow Build), link={github}/actions?query=workflow%3ABuild+branch%3Amain]
 image:https://img.shields.io/jetbrains/plugin/v/14696-asciidoc.svg[JetBrains Plugins,link=https://plugins.jetbrains.com/plugin/14696-asciidoclet]
 image:https://img.shields.io/jetbrains/plugin/d/14696-asciidoc.svg[Downloads,link=https://plugins.jetbrains.com/plugin/14696-asciidoclet]
 
