@@ -33,11 +33,11 @@ allprojects {
 }
 
 intellij {
-  version = 'IC-2021.3.2'
+  version = 'IC-2022.2'
   pluginName = 'asciidoclet-intellij-plugin'
   updateSinceUntilBuild = false
   plugins = [
-    'PsiViewer:213-SNAPSHOT', // used for debugging
+    'PsiViewer:222-SNAPSHOT', // used for debugging
     'org.asciidoctor.intellij.asciidoc:0.37.54', // used as a base for rendering AsciiDoc
     'java' // used to override Java
   ]
@@ -110,6 +110,11 @@ sourceSets {
       exclude('META-INF/description.html')
     }
   }
+}
+
+java {
+  targetCompatibility = "11"
+  sourceCompatibility = "11"
 }
 
 compileJava {
