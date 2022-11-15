@@ -19,6 +19,8 @@
   <depends>org.asciidoctor.intellij.asciidoc</depends>
 
   <extensions defaultExtensionNs="com.intellij">
+    <lang.documentationProvider implementationClass="org.asciidoc.intellij.asciidoclet.javadoc.AsciidocletDocumentationProvider"
+                           language="JAVA" order="first" />
     <applicationService overrides="true" serviceInterface="com.intellij.codeInsight.javadoc.JavaDocInfoGeneratorFactory"
                         serviceImplementation="org.asciidoc.intellij.asciidoclet.javadoc.AsciidocletJavaDocInfoGeneratorFactory"/>
     <applicationConfigurable id="Settings.Asciidoclet.Preview"
