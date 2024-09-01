@@ -4,6 +4,7 @@ import com.intellij.codeInsight.javadoc.JavaDocInfoGenerator;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -15,7 +16,6 @@ import org.asciidoc.intellij.editor.AsciiDocPreviewEditor;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -118,9 +118,9 @@ public class AsciidocletJavaDocInfoGenerator extends JavaDocInfoGenerator {
       Path tempImagesPath = AsciiDocWrapper.tempImagesPath(null, null);
       List<String> extensions = ApplicationManager.getApplication().getService(AsciiDocExtensionService.class).getExtensions(project);
       try {
-        File fileBaseDir = new File("");
+        VirtualFile fileBaseDir = null;
         if (element.getProject().getBasePath() != null) {
-          fileBaseDir = new File(element.getProject().getBasePath());
+          fileBaseDir = LocalFileSystem.getInstance().findFileByPath(element.getProject().getBasePath());
         }
         String name = "unkown";
         if (virtualFile != null) {
