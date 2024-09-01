@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-  id "org.jetbrains.intellij" version "1.9.0"
+  id "org.jetbrains.intellij" version "1.17.4"
   id "checkstyle"
   id 'org.asciidoctor.jvm.convert' version '3.3.2'
   // once windows classpaths get too long, use this dependency to make them shorter again
@@ -27,19 +27,19 @@ import org.jetbrains.intellij.tasks.RunPluginVerifierTask.FailureLevel
 
 allprojects {
   repositories {
+    mavenCentral()
     mavenLocal()
-    jcenter()
   }
 }
 
 intellij {
-  version = 'IC-2022.2'
+  version = 'IC-2024.1.6'
   pluginName = 'asciidoclet-intellij-plugin'
   updateSinceUntilBuild = false
   plugins = [
-    'PsiViewer:222-SNAPSHOT', // used for debugging
-    'org.asciidoctor.intellij.asciidoc:0.37.54', // used as a base for rendering AsciiDoc
-    'java' // used to override Java
+    'PsiViewer:241.14494.158-EAP-SNAPSHOT', // used for debugging
+    'org.asciidoctor.intellij.asciidoc:0.42.0', // used as a base for rendering AsciiDoc
+    'com.intellij.java' // used to override Java
   ]
 }
 
@@ -85,6 +85,7 @@ runPluginVerifier {
   // https://github.com/JetBrains/gradle-intellij-plugin/blob/master/src/main/kotlin/org/jetbrains/intellij/tasks/RunPluginVerifierTask.kt#L485
   failureLevel = [FailureLevel.INVALID_PLUGIN, FailureLevel.COMPATIBILITY_PROBLEMS, FailureLevel.NOT_DYNAMIC]
   ideVersions = Arrays.asList(project.properties['pluginVerifierIdeVersions'].toString().split(','))
+  freeArgs = ["-mute", "TemplateWordInPluginId"]
 }
 
 publishPlugin {
