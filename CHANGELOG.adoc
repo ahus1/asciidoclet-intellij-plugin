@@ -7,6 +7,10 @@ This document provides a high-level view of the changes introduced by release.
 [[releasenotes]]
 == Release notes
 
+=== 0.2.1
+
+...
+
 === 0.2.0
 
 - Restore compatibility with AsciiDoc plugin 0.42+ (#4)
